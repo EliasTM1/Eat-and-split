@@ -1,11 +1,35 @@
 import { VStack, Text, Input, Button, Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { Amigo } from "./mocks/mockData";
 
-export const AddFriendForm = () => {
+type AddFriendFormProps = {
+	onAddFriend: (friend: Amigo) => void;
+};
+
+export const AddFriendForm = ({ onAddFriend }: AddFriendFormProps) => {
+	// * Form State
+	const [friendName, setFriendName] = useState("");
+	const [friendImage, setFriendImage] = useState("");
+
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
 	function toggleForm() {
 		setIsFormOpen((previous) => !previous);
+	}
+
+	function createFriend(e: FormEvent) {
+		friendName.trim()
+		if(friendName === "") return
+
+		e.preventDefault()
+		onAddFriend({
+			name: friendName,
+			image: friendImage,
+			balance: 0,
+			id: Date.now(),
+		});
+		setFriendImage("")
+		setFriendName("")
 	}
 
 	return (
@@ -32,13 +56,27 @@ export const AddFriendForm = () => {
 					padding='1rem'
 					alignItems='flex-start'
 				>
-					<Text>👯 Friend name </Text>
-					<Input />
-					<Text>🌆 Image URL </Text>
-					<Input />
-					<Button width='100%' mt='1rem' backgroundColor='brand.20'>
-						Split Bill
-					</Button>
+					<form onSubmit={(e) => createFriend(e)}>
+						<Text>👯 Friend name </Text>
+						<Input
+							value={friendName}
+							onChange={(e) => setFriendName(e.target.value)}
+						/>
+						<Text>🌆 Image URL </Text>
+						<Input
+							value={friendImage}
+							onChange={(e) => setFriendImage(e.target.value)}
+						/>
+						<Button
+							width='100%'
+							mt='1rem'
+							backgroundColor='brand.20'
+							type="submit"
+							onClick={(e) => createFriend(e)}
+						>
+							Add Friend
+						</Button>
+					</form>
 				</VStack>
 			) : null}
 		</Box>

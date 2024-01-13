@@ -2,6 +2,7 @@ import { HStack, Img, VStack, Text, Button, Avatar } from "@chakra-ui/react";
 import { Amigo } from "./mocks/mockData";
 
 type FriendProps = Amigo & {
+	friendSelected: string
 	onFriendSelection: (myBillValue: string) => void;
 };
 
@@ -9,11 +10,11 @@ export const Friend = ({
 	balance,
 	image,
 	name,
+	friendSelected,
 	onFriendSelection,
 }: FriendProps) => {
 	return (
 		<HStack
-			// justifyContent='space-between'
 			backgroundColor='brand.50'
 			padding='1rem'
 			gap='1rem'
@@ -42,7 +43,8 @@ export const Friend = ({
 				color="brand.50"
 				_hover={{backgroundColor: "brand.20"}}
 			>
-				Select
+				{friendSelected === name ? "Close" : "Select"}
+				
 			</Button>
 		</HStack>
 	);

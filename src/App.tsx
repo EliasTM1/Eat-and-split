@@ -3,8 +3,10 @@ import { FriendList } from "./FriendList";
 import { AddFriendForm } from "./AddFriendForm";
 import { BillForm } from "./BillForm";
 import { useState } from "react";
+import { Amigo, initialFriends } from "./mocks/mockData";
 
 function App() {
+	const [friendsList, setFriendsList] = useState<Amigo[]>(initialFriends);
 	const [billValue, setBillValue] = useState<number>(0);
 	const [myBillExpense, setMyBillExpense] = useState<number>(0);
 	const [friendSelected, setFriendSelected] = useState<string>("");
@@ -21,12 +23,23 @@ function App() {
 	}
 
 	function handleFriendSelection(friend: string) {
+		if (friend === friendSelected) {
+			setFriendSelected("");
+			return;
+		}
 		setFriendSelected(friend);
 	}
 
-	// function clearFriendSelection() {
-	// 	setFriendSelected("");
-	// }
+	function handleAddFriend(friend: Amigo) {
+		setFriendsList((previusState) => [...previusState, friend]);
+	}
+
+	function splitTheBill(friendId: number, updatedBalance: number) {
+		const foundFriend = friendsList.find((friend) => friend.id === friendId);
+		if (!foundFriend) return;
+		foundFriend.balance = updatedBalance;
+		setFriendsList((previousState) => [...previousState, foundFriend]);
+	}
 
 	return (
 		<Box
@@ -42,8 +55,12 @@ function App() {
 				width='100%'
 			>
 				<VStack height='50%'>
-					<FriendList onFriendSelection={handleFriendSelection} />
-					<AddFriendForm />
+					<FriendList
+						friendList={friendsList}
+						friendSelected={friendSelected}
+						onFriendSelection={handleFriendSelection}
+					/>
+					<AddFriendForm onAddFriend={handleAddFriend} />
 				</VStack>
 				<VStack height='50%'>
 					<BillForm
@@ -51,6 +68,7 @@ function App() {
 						remainToPay={remainToPay}
 						myExpense={myBillExpense}
 						total={billValue}
+						// onSplitBill={splitTheBill}
 						onMyBillChange={handleMyExpense}
 						onBillChange={handleBillChange}
 					/>
