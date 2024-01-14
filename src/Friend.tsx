@@ -26,7 +26,7 @@ export const Friend = ({
 			{image === "" ? (
 				<Avatar name={name} border='1px solid black' />
 			) : (
-				<Img src={image} borderRadius='25' />
+				<Img alt={name} src={image} borderRadius='25' />
 			)}
 			<VStack flexGrow={1} alignItems='right' gap='0'>
 				<Text>{name}</Text>
