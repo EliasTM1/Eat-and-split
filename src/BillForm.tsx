@@ -1,29 +1,31 @@
 import { Heading, VStack, Text, Input, Select, Button } from "@chakra-ui/react";
 import { useState } from "react";
+import { Amigo } from "./mocks/mockData";
 
 type BillFormProps = {
 	total: number;
 	myExpense: number;
 	remainToPay: number;
-	friendSelected: string;
-	handleBillSplit?: (number: number) => void;
+	friendSelected: Amigo;
+	onSplitBill: (friendId: number, updatedBalance: number, whoIsPaying: whoPaysT) => void;
 	onBillChange: (billValue: number) => void;
 	onMyBillChange: (myBillValue: number) => void;
 };
 
-type whoPaysT = "user" | "friend";
+export type whoPaysT = "user" | "friend";
 
 export const BillForm = ({
 	total, // * Total of the bill
 	myExpense, // * What the user spent
 	remainToPay, // * What is left to pay
 	friendSelected, // * who is the current friend
-	// handleBillSplit, // * who is the current friend
+	onSplitBill, // * who is the current friend
 	onBillChange, // * initial bill change
 	onMyBillChange, // * update the bill
 }: BillFormProps) => {
 	const [whosPaying, setWhosPaying] = useState<whoPaysT>("user");
-	return friendSelected !== "" ? (
+
+	return friendSelected.name ? (
 		<VStack
 			borderRadius='10px'
 			border='1px solid black'
@@ -32,7 +34,7 @@ export const BillForm = ({
 			padding='1rem'
 			width='400px'
 		>
-			<Heading>Split a bill with {friendSelected}</Heading>
+			<Heading>Split a bill with {friendSelected.name}</Heading>
 			<Text>💰💰 Bill value </Text>
 			<Input
 				value={total}
@@ -43,7 +45,7 @@ export const BillForm = ({
 				value={myExpense}
 				onChange={(e) => onMyBillChange(Number(e.target.value))}
 			/>
-			<Text>👯 {friendSelected}'s expense </Text>
+			<Text>👯 {friendSelected.name}'s expense </Text>
 			<Input readOnly disabled value={remainToPay} />
 			<Text>🤑 Who is paying the bill? </Text>
 			<Select
@@ -51,10 +53,16 @@ export const BillForm = ({
 				value={whosPaying}
 				onChange={(e) => setWhosPaying(e.target.value as whoPaysT)}
 			>
+				Manzano98mil3
 				<option value='user'>You</option>
-				<option value='friend'>{friendSelected}</option>
+				<option value='friend'>{friendSelected.name}</option>
 			</Select>
-			<Button mt='1rem' backgroundColor='brand.10' color='brand.50'>
+			<Button
+				mt='1rem'
+				backgroundColor='brand.10'
+				color='brand.50'
+				onClick={() => onSplitBill(friendSelected.id, remainToPay, whosPaying)}
+			>
 				Split Bill
 			</Button>
 		</VStack>

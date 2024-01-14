@@ -1,5 +1,5 @@
 export type Amigo = {
-    id?: number; 
+    id: number; 
     name: string; 
     image: string; 
     balance: number; 
@@ -25,7 +25,7 @@ export const initialFriends : Amigo[] = [
       balance: 0,
     },
     {
-      id: 499476,
+      id: 54512,
       name: "Kerouac",
       image: "",
       balance: 0,

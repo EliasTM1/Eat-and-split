@@ -4,13 +4,13 @@ import { Amigo } from "./mocks/mockData";
 
 type FriendListProps = {
 	friendList: Amigo[];
-	friendSelected: string;
-	onFriendSelection: (myBillValue: string) => void;
+	selectedFriend: Amigo;
+	onFriendSelection: (selectedFriend: number) => void;
 };
 
 export const FriendList = ({
 	friendList,
-	friendSelected,
+	selectedFriend,
 	onFriendSelection,
 }: FriendListProps) => {
 	return (
@@ -23,7 +23,7 @@ export const FriendList = ({
 		>
 			{friendList.map(({ balance, id, image, name }, index) => (
 				<Friend
-					friendSelected={friendSelected}
+					selectedFriend={selectedFriend}
 					onFriendSelection={onFriendSelection}
 					key={index}
 					balance={balance}
