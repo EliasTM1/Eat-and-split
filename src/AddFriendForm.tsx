@@ -1,10 +1,8 @@
 import { VStack, Text, Input, Button, Box } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
-import { Amigo } from "./mocks/mockData";
+import { AddFriendFormProps } from "./types";
 
-type AddFriendFormProps = {
-	onAddFriend: (friend: Amigo) => void;
-};
+
 
 export const AddFriendForm = ({ onAddFriend }: AddFriendFormProps) => {
 	// * Form State

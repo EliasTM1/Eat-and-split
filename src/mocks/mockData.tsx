@@ -1,9 +1,4 @@
-export type Amigo = {
-    id: number; 
-    name: string; 
-    image: string; 
-    balance: number; 
-}
+import { Amigo } from "../types";
 
 export const initialFriends : Amigo[] = [
     {

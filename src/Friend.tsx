@@ -1,10 +1,5 @@
 import { HStack, Img, VStack, Text, Button, Avatar } from "@chakra-ui/react";
-import { Amigo } from "./mocks/mockData";
-
-type FriendProps = Amigo & {
-	selectedFriend: Amigo
-	onFriendSelection: (myBillValue: number) => void;
-};
+import { FriendProps } from "./types";
 
 export const Friend = ({
 	balance,

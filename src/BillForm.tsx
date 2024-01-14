@@ -1,18 +1,7 @@
 import { Heading, VStack, Text, Input, Select, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { Amigo } from "./mocks/mockData";
+import { BillFormProps, whoPaysT } from "./types";
 
-type BillFormProps = {
-	total: number;
-	myExpense: number;
-	remainToPay: number;
-	friendSelected: Amigo;
-	onSplitBill: (friendId: number, updatedBalance: number, whoIsPaying: whoPaysT) => void;
-	onBillChange: (billValue: number) => void;
-	onMyBillChange: (myBillValue: number) => void;
-};
-
-export type whoPaysT = "user" | "friend";
 
 export const BillForm = ({
 	total, // * Total of the bill

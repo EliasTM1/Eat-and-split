@@ -1,12 +1,8 @@
 import { VStack } from "@chakra-ui/react";
 import { Friend } from "./Friend";
-import { Amigo } from "./mocks/mockData";
+import { FriendListProps } from "./types";
 
-type FriendListProps = {
-	friendList: Amigo[];
-	selectedFriend: Amigo;
-	onFriendSelection: (selectedFriend: number) => void;
-};
+
 
 export const FriendList = ({
 	friendList,
